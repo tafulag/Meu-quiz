@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio 21 Dias - Volte a se sentir linda e confiante</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FFF5F7;
+            overflow-x: hidden;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #FBCFE8;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #F472B6 0%, #EC4899 100%);
+        }
+        
+        .option-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .option-card.selected {
+            border-color: #EC4899;
+            background-color: #FDF2F8;
+        }
+        
+        .result-card {
+            background: linear-gradient(135deg, #FFF5F7 0%, #FCE7F3 100%);
+            border: 1px solid #FBCFE8;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(90deg, #F472B6 0%, #EC4899 100%);
+        }
+        
+        .btn-gradient:hover {
+            background: linear-gradient(90deg, #EC4899 0%, #DB2777 100%);
+        }
+        
+        .testimonial-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #F472B6;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .payment-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .payment-step-number {
+            width: 30px;
+            height: 30px;
+            background-color: #EC4899;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .welcome-hero {
+            background: linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%);
+        }
+        
+        .benefit-card {
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .success-story {
+            transition: all 0.3s ease;
+        }
+        
+        .success-story:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-heart text-pink-500 text-2xl mr-2"></i>
+                <span class="font-bold text-xl text-pink-600">Desafio 21 Dias</span>
+            </div>
+            <div class="hidden md:block">
+                <span class="text-sm text-gray-600">Resultados comprovados em Moçambique!</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Welcome Page -->
+    <div id="welcome-container" class="container mx-auto px-4 py-8">
+        <section class="welcome-hero rounded-xl p-8 md:p-12 mb-12 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-pink-600 mb-6">Transforme seu corpo em apenas 21 dias!</h1>
+            <p class="text-lg text-gray-700 mb-8 max-w-3xl mx-auto">O método revolucionário adaptado para a realidade moçambicana que já ajudou centenas de mulheres a recuperarem sua autoestima e bem-estar</p>
+            
+            <div class="flex justify-center">
+                <button class="px-8 py-4 btn-gradient text-white rounded-lg font-bold text-lg pulse" onclick="startQuiz()">
+                    Começar Agora <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-pink-600 mb-8">Por que nosso método funciona?</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="benefit-card bg-white p-6 rounded-lg shadow text-center">
+                    <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-utensils text-pink-500 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-pink-600 mb-3">Alimentação Adaptada</h3>
+                    <p class="text-gray-600">Cardápios com ingredientes locais e acessíveis, sem deixar de lado o sabor da nossa culinária</p>
+                </div>
+                
+                <div class="benefit-card bg-white p-6 rounded-lg shadow text-center">
+                    <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-home text-pink-500 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-pink-600 mb-3">Exercícios em Casa</h3>
+                    <p class="text-gray-600">Roteiros de atividades simples que você pode fazer no conforto do seu lar, sem equipamentos caros</p>
+                </div>
+                
+                <div class="benefit-card bg-white p-6 rounded-lg shadow text-center">
+                    <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-heartbeat text-pink-500 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-pink-600 mb-3">Saúde Integral</h3>
+                    <p class="text-gray-600">Técnicas para reduzir o inchaço, melhorar a digestão e aumentar sua energia no dia a dia</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-pink-50 rounded-xl p-8 mb-12">
+            <h2 class="text-2xl font-bold text-center text-pink-600 mb-6">O que você vai receber:</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div class="flex items-start">
+                    <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white mr-4 mt-1 flex-shrink-0">
+                        <i class="fas fa-check text-sm"></i>
+                    </div>
+                    <p class="text-gray-700">Ebook completo com plano alimentar de 21 dias</p>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white mr-4 mt-1 flex-shrink-0">
+                        <i class="fas fa-check text-sm"></i>
+                    </div>
+                    <p class="text-gray-700">Receitas tradicionais moçambicanas light</p>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white mr-4 mt-1 flex-shrink-0">
+                        <i class="fas fa-check text-sm"></i>
+                    </div>
+                    <p class="text-gray-700">Técnicas de automassagem anti-inchaço</p>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white mr-4 mt-1 flex-shrink-0">
+                        <i class="fas fa-check text-sm"></i>
+                    </div>
+                    <p class="text-gray-700">Guia para reduzir o sal sem perder o sabor</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button class="px-8 py-4 btn-gradient text-white rounded-lg font-bold text-lg pulse" onclick="startQuiz()">
+                    Quero Começar! <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Quiz Container -->
+    <div id="quiz-container" class="container mx-auto px-4 py-8 hidden">
+        <!-- Progress Bar -->
+        <div class="container mx-auto px-4 mt-4">
+            <div class="progress-bar w-full">
+                <div class="progress-fill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question-container mb-12" data-question="1">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-pink-600 mb-6">Em média, quantos quilos você gostaria de perder?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 1)">
+                    <h3 class="font-semibold text-lg text-center">Até 5kg</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 1)">
+                    <h3 class="font-semibold text-lg text-center">Entre 5kg e 10kg</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 1)">
+                    <h3 class="font-semibold text-lg text-center">Entre 10kg e 15kg</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 1)">
+                    <h3 class="font-semibold text-lg text-center">Mais de 15kg</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-container hidden mb-12" data-question="2">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-pink-600 mb-6">Qual parte do corpo você sente mais inchaço?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 2)">
+                    <h3 class="font-semibold text-lg text-center">Barriga</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 2)">
+                    <h3 class="font-semibold text-lg text-center">Pernas e coxas</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 2)">
+                    <h3 class="font-semibold text-lg text-center">Rosto e pescoço</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 2)">
+                    <h3 class="font-semibold text-lg text-center">Todo o corpo</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-container hidden mb-12" data-question="3">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-pink-600 mb-6">Quantas vezes por semana você pratica exercícios?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 3)">
+                    <h3 class="font-semibold text-lg text-center">Nenhuma</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 3)">
+                    <h3 class="font-semibold text-lg text-center">1-2 vezes</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 3)">
+                    <h3 class="font-semibold text-lg text-center">3-4 vezes</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 3)">
+                    <h3 class="font-semibold text-lg text-center">5+ vezes</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-container hidden mb-12" data-question="4">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-pink-600 mb-6">Qual sua maior dificuldade para emagrecer?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 4)">
+                    <h3 class="font-semibold text-lg text-center">Falta de tempo</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 4)">
+                    <h3 class="font-semibold text-lg text-center">Ansiedade/compulsão</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 4)">
+                    <h3 class="font-semibold text-lg text-center">Metabolismo lento</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 4)">
+                    <h3 class="font-semibold text-lg text-center">Falta de motivação</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-container hidden mb-12" data-question="5">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-pink-600 mb-6">Qual é o seu tipo de alimentação mais comum?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 5)">
+                    <h3 class="font-semibold text-lg text-center">Tradicional moçambicana (xima, peixe, etc.)</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 5)">
+                    <h3 class="font-semibold text-lg text-center">Fast food/comida rápida</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 5)">
+                    <h3 class="font-semibold text-lg text-center">Mista (tradicional e moderna)</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 5)">
+                    <h3 class="font-semibold text-lg text-center">Tento comer saudável</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-container hidden mb-12" data-question="6">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-pink-600 mb-6">Como você costuma se hidratar durante o dia?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 6)">
+                    <h3 class="font-semibold text-lg text-center">Água pura</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 6)">
+                    <h3 class="font-semibold text-lg text-center">Refrigerantes/sucos industrializados</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 6)">
+                    <h3 class="font-semibold text-lg text-center">Chás e infusões</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 6)">
+                    <h3 class="font-semibold text-lg text-center">Não bebo muita água</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-container hidden mb-12" data-question="7">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-pink-600 mb-6">Você consome muitos alimentos ricos em sal (como peixe seco, camarão seco)?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 7)">
+                    <h3 class="font-semibold text-lg text-center">Sim, quase todos os dias</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 7)">
+                    <h3 class="font-semibold text-lg text-center">Algumas vezes por semana</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 7)">
+                    <h3 class="font-semibold text-lg text-center">Raramente</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 7)">
+                    <h3 class="font-semibold text-lg text-center">Não consumo</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-container hidden mb-12" data-question="8">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-pink-600 mb-6">Qual seu maior objetivo com o desafio?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 8)">
+                    <h3 class="font-semibold text-lg text-center">Perder medidas para um evento especial</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 8)">
+                    <h3 class="font-semibold text-lg text-center">Desinchar e sentir-me mais leve</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 8)">
+                    <h3 class="font-semibold text-lg text-center">Melhorar minha saúde e autoestima</h3>
+                </div>
+                <div class="option-card bg-white p-6 rounded-lg border-2 border-gray-200" onclick="selectOption(this, 8)">
+                    <h3 class="font-semibold text-lg text-center">Preparar meu corpo para o verão</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex justify-center mt-8">
+            <button id="prev-btn" class="hidden bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg mr-4" onclick="prevQuestion()">
+                <i class="fas fa-arrow-left mr-2"></i> Voltar
+            </button>
+            <button id="next-btn" class="hidden bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-6 rounded-lg" onclick="nextQuestion()">
+                Próxima <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <button id="submit-btn" class="hidden btn-gradient text-white font-bold py-3 px-6 rounded-lg" onclick="showResults()">
+                Ver meu resultado <i class="fas fa-star ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Results Container -->
+    <div id="results-container" class="hidden container mx-auto px-4 py-12 max-w-4xl">
+        <div class="result-card rounded-xl p-8 mb-12">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-pink-600 mb-4">Seu resultado está pronto!</h2>
+                <div class="w-24 h-24 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-check text-pink-500 text-4xl"></i>
+                </div>
+                <p class="text-lg text-gray-700 mb-6">Com base nas suas respostas, você pode ver resultados significativos em <span class="font-bold text-pink-600">apenas 21 dias</span> seguindo nosso método adaptado para Moçambique!</p>
+                
+                <div class="bg-pink-50 rounded-lg p-6 mb-8">
+                    <h3 class="font-bold text-pink-600 text-xl mb-3">Seu plano personalizado:</h3>
+                    <ul class="text-left list-disc pl-5 text-gray-700 space-y-2">
+                        <li>Exercícios simples que pode fazer em casa <span class="font-semibold">sem equipamentos</span></li>
+                        <li>Cardápio anti-inchaço com alimentos locais e acessíveis</li>
+                        <li>Técnicas de automassagem para reduzir medidas</li>
+                        <li>Dicas para adaptar a dieta moçambicana para emagrecer</li>
+                        <li>Orientações para reduzir o inchaço causado pelo sal</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <h3 class="text-xl font-bold text-pink-600 mb-2">O Desafio começa em breve!</h3>
+                <p class="text-gray-700 mb-6">Baixe agora o seu eBook e comece a transformação 💪🏾📘</p>
+                
+                <button class="px-8 py-4 btn-gradient text-white rounded-lg font-bold text-lg pulse" onclick="downloadEbook()">
+                    QUERO MEU EBOOK AGORA! <i class="fas fa-arrow-down ml-2"></i>
+                </button>
+                
+                <p class="text-sm text-gray-500 mt-4">Oferta por tempo limitado - Comece hoje mesmo!</p>
+            </div>
+        </div>
+
+        <!-- Success Stories Section -->
+        <div class="mt-16 px-4 sm:px-6 lg:px-8">
+            <h3 class="text-3xl font-bold text-center text-pink-600 mb-12">Mulheres moçambicanas que já transformaram seus corpos com nosso método 💃🏾✨</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16 max-w-6xl mx-auto">
+                <!-- Success Story 1 -->
+                <div class="success-story bg-white p-8 rounded-xl shadow-lg transition-all duration-300 text-center">
+                    <div class="flex justify-center mb-6">
+                        <img src="1.jpg" alt="Ana de Maputo - Depoimento" 
+                             class="testimonial-img">
+                    </div>
+                    <h4 class="font-bold text-xl text-pink-600 mb-3">Ana, Maputo</h4>
+                    <p class="text-gray-600 italic mb-4 text-lg">"Em 3 semanas já via diferença no meu pãozinho!"</p>
+                    <p class="text-gray-700">"Nunca imaginei que exercícios simples em casa poderiam fazer tanta diferença. Adaptei o xima com mais vegetais e me sinto muito melhor!"</p>
+                </div>
+                
+                <!-- Success Story 2 -->
+                <div class="success-story bg-white p-8 rounded-xl shadow-lg transition-all duration-300 text-center">
+                    <div class="flex justify-center mb-6">
+                        <img src="3.jpg" alt="Carla da Beira - Depoimento" 
+                             class="testimonial-img">
+                    </div>
+                    <h4 class="font-bold text-xl text-pink-600 mb-3">Carla, Beira</h4>
+                    <p class="text-gray-600 italic mb-4 text-lg">"Finalmente encontrei algo que funciona para mim!"</p>
+                    <p class="text-gray-700">"Depois de tantas tentativas frustradas, o método de 21 dias foi a solução. Aprendi a preparar o peixe com menos sal e minhas pernas já não incham!"</p>
+                </div>
+                
+                <!-- Success Story 3 -->
+                <div class="success-story bg-white p-8 rounded-xl shadow-lg transition-all duration-300 text-center">
+                    <div class="flex justify-center mb-6">
+                        <img src="2.jpg" alt="Luísa de Nampula - Depoimento" 
+                             class="testimonial-img">
+                    </div>
+                    <h4 class="font-bold text-xl text-pink-600 mb-3">Luísa, Nampula</h4>
+                    <p class="text-gray-600 italic mb-4 text-lg">"Meu vestido de casamento ficou perfeito!"</p>
+                    <p class="text-gray-700">"Com o desafio consegui desinchar a tempo do meu casamento tradicional. Usei técnicas com ingredientes locais e foi incrível!"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Instructions Section -->
+        <div class="bg-pink-50 rounded-lg p-6 md:p-8 mb-8">
+            <h3 class="text-2xl font-bold text-center text-pink-600 mb-6">Como adquirir seu eBook e começar hoje mesmo 🚀</h3>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="payment-step">
+                    <div class="payment-step-number">1</div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800">Clique no botão "QUERO MEU EBOOK AGORA!"</h4>
+                        <p class="text-sm text-gray-600">Você será redirecionada para nossa página segura de pagamento</p>
+                    </div>
+                </div>
+                
+                <div class="payment-step">
+                    <div class="payment-step-number">2</div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800">Escolha sua forma de pagamento</h4>
+                        <p class="text-sm text-gray-600">Aceitamos M-Pesa, transferência bancária (Millennium BIM, BCI, Standard Bank) e cartão de crédito</p>
+                    </div>
+                </div>
+                
+                <div class="payment-step">
+                    <div class="payment-step-number">3</div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800">Confirme seus dados</h4>
+                        <p class="text-sm text-gray-600">Insira seu email ou número de WhatsApp para receber o eBook</p>
+                    </div>
+                </div>
+                
+                <div class="payment-step">
+                    <div class="payment-step-number">4</div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800">Receba seu eBook instantaneamente</h4>
+                        <p class="text-sm text-gray-600">O link de download chegará no seu email ou WhatsApp em até 5 minutos</p>
+                    </div>
+                </div>
+                
+                <div class="payment-step">
+                    <div class="payment-step-number">5</div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800">Comece seu desafio de 21 dias!</h4>
+                        <p class="text-sm text-gray-600">Baixe o eBook e siga as instruções adaptadas para a realidade moçambicana</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <p class="text-pink-600 font-medium mb-4">Dúvidas? Envie mensagem para <span class="font-bold">+258 83 490 5248</span> no WhatsApp</p>
+                
+                <button class="px-8 py-4 btn-gradient text-white rounded-lg font-bold text-lg pulse" onclick="downloadEbook()">
+                    QUERO MEU EBOOK AGORA! <i class="fas fa-arrow-down ml-2"></i>
+                </button>
+                
+                <p class="text-xs text-gray-500 mt-4">*Garantia de 7 dias: Se não gostar, devolvemos seu dinheiro*</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 8;
+        const answers = {};
+        
+        // Initialize the quiz
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show welcome page by default
+            document.getElementById('welcome-container').classList.remove('hidden');
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+        });
+        
+        function startQuiz() {
+            document.getElementById('welcome-container').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+            
+            // Reset quiz state
+            currentQuestion = 1;
+            updateProgressBar();
+            document.getElementById('next-btn').classList.remove('hidden');
+            
+            // Show first question
+            document.querySelectorAll('.question-container').forEach(q => q.classList.add('hidden'));
+            document.querySelector(`.question-container[data-question="1"]`).classList.remove('hidden');
+        }
+        
+        function selectOption(element, questionNumber) {
+            // Remove selected class from all options in this question
+            const options = document.querySelectorAll(`.question-container[data-question="${questionNumber}"] .option-card`);
+            options.forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            
+            // Store the answer
+            answers[questionNumber] = element.querySelector('h3').textContent;
+            
+            // Show next button if not last question
+            if (questionNumber < totalQuestions) {
+                document.getElementById('next-btn').classList.remove('hidden');
+                document.getElementById('submit-btn').classList.add('hidden');
+            } else {
+                document.getElementById('next-btn').classList.add('hidden');
+                document.getElementById('submit-btn').classList.remove('hidden');
+            }
+            
+            // Show prev button if not first question
+            if (questionNumber > 1) {
+                document.getElementById('prev-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('prev-btn').classList.add('hidden');
+            }
+        }
+        
+        function nextQuestion() {
+            if (currentQuestion < totalQuestions) {
+                document.querySelector(`.question-container[data-question="${currentQuestion}"]`).classList.add('hidden');
+                currentQuestion++;
+                document.querySelector(`.question-container[data-question="${currentQuestion}"]`).classList.remove('hidden');
+                updateProgressBar();
+                
+                // Hide next button until an option is selected
+                document.getElementById('next-btn').classList.add('hidden');
+                
+                // Show prev button
+                document.getElementById('prev-btn').classList.remove('hidden');
+                
+                // Hide submit button unless it's the last question
+                if (currentQuestion < totalQuestions) {
+                    document.getElementById('submit-btn').classList.add('hidden');
+                }
+            }
+        }
+        
+        function prevQuestion() {
+            if (currentQuestion > 1) {
+                document.querySelector(`.question-container[data-question="${currentQuestion}"]`).classList.add('hidden');
+                currentQuestion--;
+                document.querySelector(`.question-container[data-question="${currentQuestion}"]`).classList.remove('hidden');
+                updateProgressBar();
+                
+                // Show next button
+                document.getElementById('next-btn').classList.remove('hidden');
+                
+                // Hide submit button
+                document.getElementById('submit-btn').classList.add('hidden');
+                
+                // Hide prev button if it's the first question
+                if (currentQuestion === 1) {
+                    document.getElementById('prev-btn').classList.add('hidden');
+                }
+            }
+        }
+        
+        function updateProgressBar() {
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.querySelector('.progress-fill').style.width = `${progress}%`;
+        }
+        
+        function showResults() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('results-container').classList.remove('hidden');
+            
+            // Scroll to top of results
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Personalize results based on answers (simplified example)
+            const planDetails = document.querySelector('.bg-pink-50 ul');
+            
+            if (answers[5] && answers[5].includes('Tradicional moçambicana')) {
+                const newItem = document.createElement('li');
+                newItem.innerHTML = '<span class="font-semibold">Versões mais leves</span> de pratos tradicionais como xima e matapa';
+                planDetails.appendChild(newItem);
+            }
+            
+            if (answers[7] && answers[7].includes('Sim, quase todos os dias')) {
+                const newItem = document.createElement('li');
+                newItem.textContent = 'Técnicas para reduzir o sal sem perder o sabor dos alimentos';
+                planDetails.appendChild(newItem);
+            }
+        }
+        
+        function downloadEbook() {
+            // In a real implementation, this would redirect to payment or download
+            alert('Redirecionando para a página de pagamento...');
+            // window.location.href = 'https://seusite.com/comprar-ebook';
+        }
+    </script>
+</body>
+</html>
